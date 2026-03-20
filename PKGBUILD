@@ -94,7 +94,8 @@ _pkg=aiosignal
 pkgname="${_py}-${_pkg}"
 pkgver=1.3.1
 _commit="2b8907dc15f976d3747a16bd65f1681ae54249a3"
-pkgrel=8
+_bundle_commit="74d15c006702e8430cbc4c5bf40b03de713f56ff"
+pkgrel=10
 _pkgdesc=(
   "List of registered"
   "asynchronous callbacks"
@@ -136,12 +137,12 @@ if [[ "${_offline}" == "true" ]]; then
 fi
 _gitlab_release_sum="SKIP"
 _gitlab_release_sig_sum="SKIP"
-_gitlab_sum="SKIP"
-_gitlab_sig_sum="SKIP"
-_github_sum="c199553ca036a44aa5e6df1bf09856bed6c3b7504628d606f282dc0540303fcf"
-_github_sig_sum="991e271602181f135726ba950bf3553edbb66de84be78321792d16908b0b378a"
-_bundle_sum="be0a598ebdb6ebf5246b6235684cd7dc68d2b8dddd947f7d5e6da398baba5c97"
-_bundle_sig_sum="ef4d4e254c2cc60447e68307addfe7dbe4839911ac8a61036eb547c88f767533"
+_gitlab_sum="a0086b900f2e9670aa6b7215e406e53a308264f073ca303c1ec700a7a2a38af8"
+_gitlab_sig_sum="dbf1b7ea19befa618be7e404892b07cb1454c90f6b1ade9a19e88d71b9386818"
+_github_sum="5d6b63a124b733502f7b3a05a9f168965cc8298148c1429740393e49110f2fec"
+_github_sig_sum="30430c3197dba478db76201216bb6fd35eda9d91597db6d4362992f54101373c"
+_bundle_sum="a12be55cc3b80fc55b3184ea853d8e8df97c781ca1c5ca5d4d8bd30b56be2a7b"
+_bundle_sig_sum="661155d387f3cefce5959382d3a584342ce2d686e63210170881d90a02d63e67"
 if [[ "${_evmfs}" == "true" ]]; then
   if [[ "${_git}" == "true" ]]; then
     _sum="${_bundle_sum}"
@@ -152,6 +153,11 @@ if [[ "${_evmfs}" == "true" ]]; then
     if [[ "${_git_service}" == "github" ]]; then
       _sum="${_github_sum}"
       _sig_sum="${_github_sig_sum}"
+      # Truocolo
+      _evmfs_ns="0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b"
+    elif [[ "${_git_service}" == "gitlab" ]]; then
+      _sum="${_gitlab_sum}"
+      _sig_sum="${_gitlab_sig_sum}"
       # Truocolo
       _evmfs_ns="0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b"
     fi
