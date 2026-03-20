@@ -1,15 +1,101 @@
 # SPDX-License-Identifier: AGPL-3.0
-#
-# Maintainer: Truocolo <truocolo@aol.com>
-# Maintainer: Pellegrino Prevete (tallero) <pellegrinoprevete@gmail.com>
-# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
+#    ----------------------------------------------------------------------
+#    Copyright © 2024, 2025, 2026  Pellegrino Prevete
+#
+#    All rights reserved
+#    ----------------------------------------------------------------------
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public
+#    License along with this program.
+#    If not, see <https://www.gnu.org/licenses/>.
+
+# Maintainers:
+#   Truocolo
+#     <truocolo@aol.com>
+#     <truocolo@0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b>
+#   Pellegrino Prevete (dvorak)
+#     <pellegrinoprevete@gmail.com>
+#     <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
+#   Levente Polyak
+#     <anthraxx[at]archlinux[dot]org>
+
+_os="$(
+  uname \
+    -o)"
+_evmfs_available="$(
+  command \
+    -v \
+    "evmfs" || \
+    true)"
+if [[ ! -v "_evmfs" ]]; then
+  if [[ "${_evmfs_available}" != "" ]]; then
+    _evmfs="true"
+  elif [[ "${_evmfs_available}" == "" ]]; then
+    _evmfs="false"
+  fi
+fi
+if [[ ! -v "_git" ]]; then
+  if [[ "${_evmfs}" == "true" ]]; then
+    _git="true"
+  elif [[ "${_evmfs}" == "false" ]]; then
+    _git="false"
+  fi
+fi
+if [[ ! -v "_offline" ]]; then
+  _offline="false"
+fi
+if [[ ! -v "_git_service" ]]; then
+  _git_service="gitlab"
+fi
+if [[ ! -v "_git_http" ]]; then
+  _git_http="${_git_service}"
+fi
+if [[ ! -v "_archive_format" ]]; then
+  if [[ "${_git}" == "true" ]]; then
+    if [[ "${_evmfs}" == "true" ]]; then
+      _archive_format="bundle"
+    elif [[ "${_evmfs}" == "false" ]]; then
+      _archive_format="git"
+    fi
+  elif [[ "${_git}" == "false" ]]; then
+    if [[ "${_git_service}" == "github" ]]; then
+      _archive_format="zip"
+    elif [[ "${_git_service}" == "gitlab" ]]; then
+      _archive_format="tar.gz"
+    fi
+  fi
+fi
 _py="python"
+_pyver="$(
+  "${_py}" \
+    -V |
+    awk \
+      '{print $2}')"
+_pymajver="${_pyver%.*}"
+_pyminver="${_pymajver#*.}"
+_pynextver="${_pymajver%.*}.$((
+  ${_pyminver} + 1))"
 _pkg=aiosignal
 pkgname="${_py}-${_pkg}"
 pkgver=1.3.1
+_commit="boh"
 pkgrel=6
-pkgdesc='List of registered asynchronous callbacks'
+_pkgdesc=(
+  "List of registered"
+  "asynchronous callbacks"
+)
+pkgdesc="${_pkgdesc[*]}"
 _http="https://github.com"
 _ns="aio-libs"
 url="${_http}/${_ns}/${_pkg}"
