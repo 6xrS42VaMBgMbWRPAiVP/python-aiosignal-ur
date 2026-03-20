@@ -94,7 +94,7 @@ _pkg=aiosignal
 pkgname="${_py}-${_pkg}"
 pkgver=1.3.1
 _commit="2b8907dc15f976d3747a16bd65f1681ae54249a3"
-pkgrel=7
+pkgrel=8
 _pkgdesc=(
   "List of registered"
   "asynchronous callbacks"
