@@ -95,7 +95,7 @@ pkgname="${_py}-${_pkg}"
 pkgver=1.3.1
 _commit="2b8907dc15f976d3747a16bd65f1681ae54249a3"
 _bundle_commit="74d15c006702e8430cbc4c5bf40b03de713f56ff"
-pkgrel=11
+pkgrel=12
 _pkgdesc=(
   "List of registered"
   "asynchronous callbacks"
